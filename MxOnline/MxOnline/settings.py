@@ -32,6 +32,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 #AUTHENTICATION_BACKENDS=('users.views.CustomBackend',)
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -45,8 +48,8 @@ INSTALLED_APPS = [
     'organization',
     'operation',
     'xadmin',
-    'crispy_forms'
-    #'captcha',
+    'crispy_forms',
+    'captcha',
     #'pure_pagination',
     #'DjangoUeditor',
 ]
@@ -149,7 +152,7 @@ STATICFILES_DIRS=(
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-EMAIL_HOST='smtp.sina.com'
+EMAIL_HOST='smtp.qq.com'
 EMAIL_PORT=25
 EMAIL_HOST_USER='qiuyi.de@qq.com'
 EMAIL_HOST_PASSWORD='jhbqykdxiyhpbced'
