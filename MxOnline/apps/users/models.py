@@ -1,12 +1,11 @@
 #_*_encoding:utf-8_*_
-from __future__ import unicode_literals#zidai
 from datetime import datetime
 
-from django.db import models#sanfang
+from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-class  UserProfile(AbstractUser):
+class UserProfile(AbstractUser):
 	nick_name=models.CharField(max_length=50,verbose_name=u"昵称",default='')
 	birday=models.DateField(verbose_name=u"生日",blank=True,null=True)
 	gender=models.CharField(max_length=10,choices=(("male",u"男"),('female',u"女")),default='female')
@@ -18,19 +17,25 @@ class  UserProfile(AbstractUser):
 		verbose_name="用户信息"
 		verbose_name_plural=verbose_name
 
-	def __unicode__(self):
+	def __str__(self):
 		return self.username
 
 class EmaileVerifyRecord(models.Model):
+	send_choices = (
+		('register', '注册'),
+		('forget', '找回密码'),
+		('update_email', '修改邮箱')
+	)
 	code=models.CharField(max_length=20,verbose_name=u'验证码')
 	email=models.EmailField(max_length=50,verbose_name=u'邮箱')
-	send_type=models.CharField(choices=(('register',u'注册'),('forget',u'找回密码')),max_length=10)
+	send_type=models.CharField(choices=send_choices,max_length=30)
 	send_time=models.DateTimeField(default=datetime.now)
 
 	class Meta:
 		verbose_name=u'邮箱验证码'
 		verbose_name_plural=verbose_name
-	def __unicode__(self):
+    
+	def __str__(self):
 		return '{0}({1})'.format(self.code, self.email)
 
 class Banner(models.Model):

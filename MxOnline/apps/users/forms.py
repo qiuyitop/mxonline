@@ -37,3 +37,4 @@ class UserInfoForm(forms.ModelForm):
         model = UserProfile
         fields = ['nick_name', 'gender', 'birday', 'address', 'mobile']
 
+

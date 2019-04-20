@@ -26,8 +26,12 @@ SECRET_KEY = 'w+lqivv)3qr#64$1q+h$jv&jjqomtnas0&f(xtc*owzo&-b@xr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
+
+
+#静态文件
+
+
 
 
 # Application definition
@@ -44,14 +48,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
-    'courses',
+    'course',
     'organization',
     'operation',
     'xadmin',
     'crispy_forms',
     'captcha',
-    #'pure_pagination',
-    #'DjangoUeditor',
+    'pure_pagination',
+    'DjangoUeditor',
 ]
 #CRISPY_TEMPLATE_PACK = 'bootstrap'
 
@@ -82,6 +86,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -101,8 +106,8 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': "123456",
         'HOST': "127.0.0.1",
-        'OPTIONS':{
-        "init_command":"SET foreign_key_checks = 0;",
+        'OPTIONS': {
+            "init_command": "SET foreign_key_checks = 0;",
         }
     }
 }
@@ -144,11 +149,9 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS=(
-    os.path.join(BASE_DIR,'static',),
-)
 
+#STATIC_URL = '/static/'
+#STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
@@ -158,3 +161,14 @@ EMAIL_HOST_USER='qiuyi.de@qq.com'
 EMAIL_HOST_PASSWORD='jhbqykdxiyhpbced'
 EMAIL_USE_TLS=False
 EMAIL_FROM='qiuyi.de@qq.com'
+
+
+#STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
+STATICFILES_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(os.path.dirname(__file__),'static')
+# 设置图片等静态文件的路径
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,'static'),
+)
+

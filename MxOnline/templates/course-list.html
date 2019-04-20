@@ -1,11 +1,14 @@
+{#templates/course-list.html#}
+
 {% extends 'base.html' %}
-{% block title %}公开课列表 - 慕学在线网{% endblock %}
 {% load staticfiles %}
+{% block title %}公开课列表{% endblock %}
+
 {% block custom_bread %}
     <section>
         <div class="wp">
-            <ul  class="crumbs">
-                <li><a href="/">首页</a>></li>
+            <ul class="crumbs">
+                <li><a href="{% url 'index' %}">首页</a>></li>
                 <li>公开课</li>
             </ul>
         </div>
@@ -13,21 +16,21 @@
 {% endblock %}
 
 {% block content %}
-    <section>
-	<div class="wp">
-		<div class="list" style="margin-top:0;">
-			<div class="left layout">
-				<div class="head">
+<section>
+    <div class="wp">
+        <div class="list" style="margin-top:0;">
+            <div class="left layout">
+                <div class="head">
 					<ul class="tab_header">
-						<li {% if sort == '' %}class="active"{% endif %}><a href="?sort=">最新 </a></li>
-						<li {% if sort == 'hot' %}class="active"{% endif %}><a href="?sort=hot">最热门</a></li>
-						<li {% if sort == 'students' %}class="active"{% endif %}><a href="?sort=students">参与人数</a></li>
+						<li class="{% ifequal sort '' %}active{% endifequal %}"><a href="?sort=" >最新 </a></li>
+						<li class="{% ifequal sort 'hot' %}active{% endifequal %}"><a href="?sort=hot" >最热门 </a></li>
+						<li class="{% ifequal sort 'students' %}active{% endifequal %}"><a href="?sort=students" >参与人数 </a></li>
 					</ul>
 				</div>
                 <div id="inWindow">
                     <div class="tab_cont " id="content">
-					<div class="group_list">
-                        {% for course in all_courses.object_list %}
+                    <div class="group_list">
+                            {% for course in all_courses.object_list %}
                             <div class="box">
                                 <a href="{% url 'course:course_detail' course.id %}">
                                     <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>
@@ -47,10 +50,8 @@
                                     </span>
                                 </div>
                             </div>
-                        {% endfor %}
-
-
-					</div>
+                            {% endfor %}
+                    </div>
                     <div class="pageturn">
                         <ul class="pagelist">
                             {% if all_courses.has_previous %}
@@ -71,34 +72,37 @@
                             {% if all_courses.has_next %}
                                 <li class="long"><a href="?{{ all_courses.next_page_number.querystring }}">下一页</a></li>
                             {% endif %}
-
                         </ul>
                     </div>
-				</div>
                 </div>
-			</div>
-			<div class="right layout">
-				<div class="head">热门课程推荐</div>
-				<div class="group_recommend">
+                </div>
+            </div>
+            <div class="right layout">
+                <div class="head">热门课程推荐</div>
+                <div class="group_recommend">
                     {% for hot_course in hot_courses %}
                     <dl>
-						<dt>
-							<a target="_blank" href="{{ ecmall_ad.url }}">
-								<img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ hot_course.image }}"/>
-							</a>
-						</dt>
-						<dd>
-							<a target="_blank" href="{{ ecmall_ad.url }}"><h2> {{ hot_course.name }}</h2></a>
-							<span class="fl">难度：<i class="key">{{ hot_course.get_degree_display }}</i></span>
-						</dd>
-					</dl>
+                        <dt>
+                            <a target="_blank" href="{% url 'course:course_detail' hot_course.id %}">
+                                <img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ hot_course.image }}"/>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a target="_blank" href="{% url 'course:course_detail' hot_course.id %}"><h2> {{ hot_course.name }}</h2></a>
+                            <span class="fl">难度：<i class="key">{{ hot_course.get_degree_display }}</i></span>
+                        </dd>
+                    </dl>
                     {% endfor %}
 
 
-				</div>
-			</div>
-		</div>
-	</div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}
 

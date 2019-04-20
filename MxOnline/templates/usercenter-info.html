@@ -1,19 +1,20 @@
 {% extends 'usercenter-base.html' %}
-{% block title %}个人信息- 慕学在线网{% endblock %}
-
+{% block title %}
+    个人信息
+{% endblock %}
 {% block custom_bread %}
     <section>
         <div class="wp">
             <ul  class="crumbs">
                 <li><a href="{% url 'index' %}">首页</a>></li>
-                <li><a href="/user/home/">个人中心</a>></li>
+                <li><a href="{% url 'users:user_info' %}">个人中心</a>></li>
                 <li>个人信息</li>
             </ul>
         </div>
     </section>
-{% endblock %}
+    {% endblock %}
 
-{% block right_content %}
+{% block custom_right_content %}
     <div class="right">
 		<div class="personal_des ">
 			<div class="head" style="border:1px solid #eaeaea;">
@@ -32,6 +33,7 @@
                                 <input type="file" name="image" id="avatarUp" class="js-img-up"/>
                             </span>
                         </label>
+                        <input type='hidden' name='csrfmiddlewaretoken' value='799Y6iPeEDNSGvrTu3noBrO4MBLv6enY' />
                         {% csrf_token %}
                     </form>
                     <div style="border-top:1px solid #eaeaea;margin-top:30px;">
@@ -45,19 +47,19 @@
                             <i class="error-tips"></i>
                         </li>
 						<li>生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：
-                           <input type="text" id="birth_day" name="birday" value="{{ request.user.birday }}" readonly="readonly"/>
+                           <input type="text" id="birth_day" name="birday" value="{{ request.user.birthday }}" readonly="readonly"/>
                             <i class="error-tips"></i>
 						</li>
 						<li>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
-							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  name="gender" value="male" {% if request.user.gender == 'male' %}checked="checked"{% endif %}>男</label>
-							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="female" {% if request.user.gender == 'female' %}checked="checked"{% endif %}>女</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  name="gender"  value="male" {% if request.user.gender == 'male' %}checked="checked"{% endif %}>男</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="female" {% if request.user.gender == 'female' %}checked="checked"{% endif %}">女</label>
 						</li>
 						<li class="p_infor_city">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：
-                            <input type="text" name="address" id="address" placeholder="请输入你的地址" value="{{ request.user.address }}" maxlength="10">
+                            <input type="text" name="adress" id="adress" placeholder="请输入你的地址" value="{{ request.user.adress }}" maxlength="10">
 						    <i class="error-tips"></i>
                         </li>
 						<li>手&nbsp;&nbsp;机&nbsp;&nbsp;号：
-                            <input type="text" name="mobile" id="mobile" placeholder="请输入你的手机号码" value="{{ request.user.mobile }}" maxlength="10">
+                            <input type="text" name="mobile" id="mobile" placeholder="请输入你的手机号码" value="{{ request.user.mobile|default_if_none:'' }}" maxlength="10">
                         </li>
                         <li>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
                         	<input class="borderno" type="text" name="email" readonly="readonly" value="{{ request.user.email }}"/>
@@ -73,5 +75,3 @@
 		</div>
 	</div>
 {% endblock %}
-
-

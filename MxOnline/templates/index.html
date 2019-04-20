@@ -1,11 +1,8 @@
 {% extends 'base.html' %}
-{% block title %}课程机构列表 - 慕学在线网{% endblock %}
 {% load staticfiles %}
-{% block custom_bread %}
-{% endblock %}
+{% block title %}GMOOC{% endblock %}
 
-{% block custom_js %}
-    <script type="text/javascript" src="/static/js/index.js"></script>
+{% block custom_bread %}
 {% endblock %}
 
 {% block content %}
@@ -21,16 +18,12 @@
                                     </a>
                                 </li>
                             {% endfor %}
-
 						</ul>
 					</div>
 					<div class="unslider-arrow prev"></div>
 					<div class="unslider-arrow next"></div>
 				</div>
-
 				</div>
-
-
 			</div>
 <!--banner end-->
 <!--feature start-->
@@ -38,19 +31,19 @@
 		<div class="wp">
 			<ul class="feature">
 				<li class="feature1">
-					<img class="pic" src="/static/images/feature1.png"/>
+					<img class="pic" src="{% static 'images/feature1.png' %}"/>
 					<p class="center">专业权威</p>
 				</li>
 				<li class="feature2">
-					<img class="pic" src="/static/images/feature2.png"/>
+					<img class="pic" src="{% static 'images/feature2.png' %}"/>
 					<p class="center">课程最新</p>
 				</li>
 				<li class="feature3">
-					<img class="pic" src="/static/images/feature3.png"/>
+					<img class="pic" src="{% static 'images/feature3.png' %}"/>
 					<p class="center">名师授课</p>
 				</li>
 				<li class="feature4">
-					<img class="pic" src="/static/images/feature4.png"/>
+					<img class="pic" src="{% static 'images/feature4.png' %}"/>
 					<p class="center">数据真实</p>
 				</li>
 			</ul>
@@ -64,7 +57,7 @@
 				<h1>公开课程</h1>
 				<div class="module1 eachmod">
 					<div class="module1_1 left">
-						<img width="228" height="614" src="/static/images/module1_1.jpg"/>
+						<img width="228" height="614" src="{% static 'images/module1_1.jpg' %}"/>
 						<p class="fisrt_word">名师授课<br/>专业权威</p>
 						<a class="more" href="{% url 'course:course_list' %}">查看更多课程 ></a>
 					</div>
@@ -72,10 +65,10 @@
 						<div class="module1_2 box">
 							<div class="imgslide2">
 								<ul class="imgs">
-                                    {% for banner_course in banner_courses %}
+                                    {% for course in courses %}
                                     <li>
-                                        <a href="{% url 'course:course_detail' banner_course.id %}">
-                                            <img width="470" height="300" src="{{ MEDIA_URL }}{{ banner_course.image }}" />
+                                        <a href="{% url 'course:course_detail' course.id %}">
+                                            <img width="470" height="300" src="{{ MEDIA_URL }}{{ course.image }}" />
                                         </a>
                                     </li>
                                     {% endfor %}
@@ -91,13 +84,13 @@
                                 </a>
                                 <div class="des">
                                     <a href="{% url 'course:course_detail' course.id %}">
-                                        <h2 title="{{ course.name }}">{{ course.name }}</h2>
+                                        <h2 title="django入门">{{ course.name }}</h2>
                                     </a>
                                     <span class="fl">难度：<i class="key">{{ course.get_degree_display }}</i></span>
                                     <span class="fr">学习人数：{{ course.students }}</span>
                                 </div>
                                 <div class="bottom">
-                                    <span class="fl" title="{{ course.course_org.name }}">{{ course.course_org.name }}</span>
+                                    <span class="fl" title="慕课网">{{ course.course_org.name }}</span>
                                     <span class="star fr">{{ course.fav_nums }}</span>
                                 </div>
                             </div>
@@ -119,8 +112,8 @@
 					</div>
 					<div class="right">
 						<ul>
-                            {% for org in course_orgs %}
-                                <li class="{% if forloop.counter|divisibleby:5 %}five{% endif %}">
+                                {% for org in course_orgs %}
+                                 <li class="{% if forloop.counter|divisibleby:5 %}five{% endif %}">
                                     <a href="{% url 'org:org_home' org.id %}">
                                         <div class="company">
                                             <img width="184" height="100" src="{{ MEDIA_URL }}{{ org.image }}"/>
@@ -133,7 +126,7 @@
                                         <p><span class="key" title="{{ org.name }}">{{ org.name }}</span></p>
                                     </a>
                                 </li>
-                            {% endfor %}
+                                {% endfor %}
 						</ul>
 					</div>
 				</div>
@@ -141,5 +134,7 @@
 		</div>
 	</section>
 {% endblock %}
-
+{% block custom_js %}
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+{% endblock %}
 

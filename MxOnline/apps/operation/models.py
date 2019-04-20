@@ -6,7 +6,7 @@ from datetime import datetime
 from django.db import models
 
 from users.models import UserProfile
-from courses.models import Course
+from course.models import Course
 
 # Create your models here.
 class UserAsk(models.Model):

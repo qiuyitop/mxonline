@@ -1,17 +1,22 @@
+{#templates/teacher-detail.html#}
+
 {% extends 'base.html' %}
-{% block title %}讲师详情 - 慕学在线网{% endblock %}
 {% load staticfiles %}
+{% block title %}讲师详情{% endblock %}
+
 {% block custom_bread %}
     <section>
         <div class="wp">
-            <ul  class="crumbs">
-                <li><a href="/">首页</a>></li>
+            <ul class="crumbs">
+                <li><a href="{% url 'index' %}">首页</a>></li>
                 <li><a href="{% url 'org:teacher_list' %}">授课讲师</a>></li>
                 <li>讲师详情</li>
             </ul>
         </div>
     </section>
 {% endblock %}
+
+
 {% block content %}
     <section>
 	<div class="wp butler-detail-box butler-diaryd-box clearfix">
@@ -38,7 +43,7 @@
                             </div>
                         </dt>
                         <dd>
-                            <a href="/diary/hk_detail/10/">
+                            <a href="{% url 'org:teacher_detail' teacher.id %}">
                                 <h1>{{ teacher.name }}<span class="key picbig">金牌讲师</span></h1>
                             </a>
                             <ul class="cont">
@@ -60,7 +65,7 @@
 				</div>
                     <div class="companycenter">
                         <div class="group_list brief">
-                            {% for teacher_course in all_courses %}
+                            {% for teacher_course in all_course %}
                             <div class="module1_5 box">
                                 <a href="{% url 'course:course_detail' teacher_course.id %}">
                                     <img width="214" height="190" class="scrollLoading" src="{{ MEDIA_URL }}{{ teacher_course.image }}"/>
@@ -77,6 +82,8 @@
                             </div>
                             {% endfor %}
 
+
+
                         </div>
                     </div>
                 <!--<div class="pageturn">-->
@@ -87,6 +94,8 @@
             </div>
             </div>
         </div>
+
+
         <div class="fr list">
              <div class="butler_detail_list">
                 <div class="right butler-company-box">
@@ -106,6 +115,7 @@
                 <a class="btn" id="jsRightBtn">{% if has_org_faved %}已收藏{% else %}收藏{% endif %}</a>
             </div>
             </div>
+
             <div class="butler_detail_cont">
                 <div class="butler_list_box">
                     <div class="right layout">
@@ -120,13 +130,12 @@
                             </a>
                             <dd>
                                 <a href="{% url 'org:teacher_detail' hot_teacher.id %}">
-                                    <h1 title="{{ hot_teacher.name }}">{{ hot_teacher.name }}</h1>
+                                    <h1 title="bobby">{{ hot_teacher.name }}</h1>
                                 </a>
                                 <p>工作年限：<span>{{ hot_teacher.work_years }}年</span></p>
                             </dd>
                         </dl>
                         {% endfor %}
-
                     </div>
                 </div>
             </div>
@@ -137,7 +146,7 @@
 
 
 {% block custom_js %}
-<script type="text/javascript">
+    <script type="text/javascript">
 //收藏分享
 function add_fav(current_elem, fav_id, fav_type){
     $.ajax({
@@ -171,9 +180,9 @@ $('#jsLeftBtn').on('click', function(){
 $('#jsRightBtn').on('click', function(){
     add_fav($(this), {{ teacher.org.id }}, 2);
 });
-
-
 </script>
-
 {% endblock %}
+
+
+
 
